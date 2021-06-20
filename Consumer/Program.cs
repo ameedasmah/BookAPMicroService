@@ -1,4 +1,5 @@
-﻿using Contract.Entities;
+﻿using Consumer.services;
+using Contract.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -7,6 +8,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -18,27 +20,86 @@ namespace Consumer
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("consumerrrrrrrrrrrrrrrrr ");
+
             string Connection = "server=.;database=Book;Trusted_Connection=true";
-            var serviceProvider = new ServiceCollection().AddDbContext<BookContext>(options => options.UseSqlServer(Connection))
+            var serviceProvider = new ServiceCollection().AddDbContext<BookContext>(options => options.UseSqlServer(Connection, b => b.MigrationsAssembly("BookTask").UseNetTopologySuite()))
              .AddScoped<IPublisherRepositories, PublisherReposoitories>()
+            .AddScoped<IPublisher, PublisherServices>()
+            .AddScoped<HttpClient>()
              .BuildServiceProvider();
-            var publisherService = serviceProvider.GetRequiredService<IPublisherRepositories>();
+            var publisherService = serviceProvider.GetRequiredService<IPublisher>();
+
+
+
+
+
+
+
+
+
 
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: "publisher", durable: false, exclusive: false, autoDelete: false, arguments: null);
+                channel.QueueDeclare(queue: "publisher", durable: true, exclusive: false, autoDelete: false, arguments: null);
                 var consumer = new EventingBasicConsumer(channel);
-                consumer.Received += (model, ea) =>
+                consumer.Received += async (model, ea) =>
                 {
                     var body = ea.Body.ToArray();
+                    string jsonString = Encoding.UTF8.GetString(body);
+                    var json = JsonConvert.DeserializeObject<JObject>(jsonString);
+
                     var message = Encoding.UTF8.GetString(body);
-                    Console.WriteLine(" [x] Wating message ");
-                    var ConvertTojson = JsonConvert.DeserializeObject<JObject>(message);
+                    var PublisherTojson = JsonConvert.DeserializeObject<ToRecive>(message);
+                    switch (PublisherTojson.Type)
+                    {
+                        case "Create":
+                            await publisherService.CreatePublisher(PublisherTojson.Id);
+                            break;
+                        default: break;
+
+                    }
                 };
+                    channel.BasicConsume(queue: "publisher",
+                                        autoAck: true,
+                                        consumer: consumer);
+                    Console.WriteLine(" Press [enter] to exit.");
+                    Console.ReadLine();
             }
         }
 
     }
 }
+
+
+
+//{
+//const string queueName = "testqueuqu";
+
+//var factory = new ConnectionFactory() { HostName = "localhost" };
+//using (var connection = factory.CreateConnection())
+//using (var channel = connection.CreateModel())
+//{
+//    channel.QueueDeclare(queue: queueName,
+//                         durable: false,
+//                         exclusive: false,
+//                         autoDelete: false,
+//                         arguments: null);
+
+//    var consumer = new EventingBasicConsumer(channel);
+//    consumer.Received += (model, ea) =>
+//    {
+//        var body = ea.Body.ToArray();
+//        var message = Encoding.UTF8.GetString(body);
+//        Console.WriteLine(" [x] Received {0}", message);
+//    };
+//    channel.BasicConsume(queue: queueName,
+//                         autoAck: true,
+//                         consumer: consumer);
+
+//    Console.WriteLine(" Press [enter] to exit.");
+//    Console.ReadLine();
+//}
+//}

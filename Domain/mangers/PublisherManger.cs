@@ -1,7 +1,6 @@
 ﻿using Contract.Entities;
 using Contract.models;
 using Contract.Resourse;
-using Domain.mangers.Producer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using System;
@@ -27,11 +26,9 @@ namespace Domain.mangers
     {
 
         private readonly IPublisherRepositories _repository;
-        private readonly IPublisherSend _publisherSend;
-        public publishermanger(IPublisherRepositories repository, IPublisherSend publisherSend)
+        public publishermanger(IPublisherRepositories repository)
         {
             _repository = repository;
-            _publisherSend = publisherSend;
         }
         public async Task<PublisherResource> CreatePublisher(PublisherModel newPublisherModel)
         {
@@ -43,11 +40,7 @@ namespace Domain.mangers
                 Salery = newPublisherModel.Salery
             };
             var newPublisherResource = await _repository.CreatePublisher(newPublisherEntity);
-            _publisherSend.sendPublisher(new SendArgument()
-            {
-                Id = newPublisherEntity.Id,
-                Type = "Create"
-            });
+       
             return newPublisherResource.ToResource();
 
 
@@ -57,11 +50,7 @@ namespace Domain.mangers
         {
             var BookToDelete = await _repository.GetPublisher(Id);
             if (BookToDelete == null) throw new Exception("Id not Found");
-            _publisherSend.sendPublisher(new SendArgument()
-            {
-                Id = BookToDelete.Id,
-                Type = "Delete"
-            });
+          
 
             await _repository.deletePublisher(BookToDelete.Id);
         }
@@ -91,11 +80,6 @@ namespace Domain.mangers
 
             existingEntity.Name = model.Name;
             var updatedEntity = await _repository.updatePublisher(existingEntity);
-            _publisherSend.sendPublisher(new SendArgument()
-            {
-                Id = existingEntity.Id,
-                Type = "Update"
-            });
             return updatedEntity.ToResource();
         }
     }

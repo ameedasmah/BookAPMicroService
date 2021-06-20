@@ -518,3 +518,10 @@ E:\New folder\GitHub ApiBook\BookMicroServicesS\WebApplication1\obj\Debug\net5.0
 E:\New folder\GitHub ApiBook\BookMicroServicesS\WebApplication1\obj\Debug\net5.0\ref\WebApplication1.dll
 E:\New folder\GitHub ApiBook\BookMicroServicesS\WebApplication1\obj\Debug\net5.0\WebApplication1.pdb
 E:\New folder\GitHub ApiBook\BookMicroServicesS\WebApplication1\obj\Debug\net5.0\WebApplication1.genruntimeconfig.cache
+E:\New folder\GitHub ApiBook\BookMicroServicesS\WebApplication1\bin\Debug\net5.0\Consumer.deps.json
+E:\New folder\GitHub ApiBook\BookMicroServicesS\WebApplication1\bin\Debug\net5.0\Consumer.runtimeconfig.json
+E:\New folder\GitHub ApiBook\BookMicroServicesS\WebApplication1\bin\Debug\net5.0\Consumer.runtimeconfig.dev.json
+E:\New folder\GitHub ApiBook\BookMicroServicesS\WebApplication1\bin\Debug\net5.0\Consumer.exe
+E:\New folder\GitHub ApiBook\BookMicroServicesS\WebApplication1\bin\Debug\net5.0\RabbitMQ.Client.dll
+E:\New folder\GitHub ApiBook\BookMicroServicesS\WebApplication1\bin\Debug\net5.0\Consumer.dll
+E:\New folder\GitHub ApiBook\BookMicroServicesS\WebApplication1\bin\Debug\net5.0\Consumer.pdb
