@@ -2290,6 +2290,23 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Contract/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "DataAccessLayer": "1.0.0",
+          "Microsoft.AspNetCore": "2.2.0",
+          "Microsoft.EntityFrameworkCore": "5.0.7",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.7",
+          "Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite": "5.0.7"
+        },
+        "compile": {
+          "bin/placeholder/Contract.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Contract.dll": {}
+        }
+      },
       "DataAccessLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -7264,6 +7281,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "Contract/1.0.0": {
+      "type": "project",
+      "path": "../Contract/Contract.csproj",
+      "msbuildProject": "../Contract/Contract.csproj"
+    },
     "DataAccessLayer/1.0.0": {
       "type": "project",
       "path": "../DataAccessLayer/DataAccessLayer.csproj",
@@ -7272,6 +7294,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "Contract >= 1.0.0",
       "DataAccessLayer >= 1.0.0",
       "RabbitMQ.Client >= 6.2.1"
     ]
@@ -7303,6 +7326,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "E:\\New folder\\GitHub ApiBook\\BookMicroServicesS\\Contract\\Contract.csproj": {
+              "projectPath": "E:\\New folder\\GitHub ApiBook\\BookMicroServicesS\\Contract\\Contract.csproj"
+            },
             "E:\\New folder\\GitHub ApiBook\\BookMicroServicesS\\DataAccessLayer\\DataAccessLayer.csproj": {
               "projectPath": "E:\\New folder\\GitHub ApiBook\\BookMicroServicesS\\DataAccessLayer\\DataAccessLayer.csproj"
             }
