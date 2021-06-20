@@ -30,15 +30,6 @@ namespace Consumer
              .BuildServiceProvider();
             var publisherService = serviceProvider.GetRequiredService<IPublisher>();
 
-
-
-
-
-
-
-
-
-
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
@@ -58,48 +49,22 @@ namespace Consumer
                         case "Create":
                             await publisherService.CreatePublisher(PublisherTojson.Id);
                             break;
+                        case "Update":
+                            await publisherService.UpdatePublisher(PublisherTojson.Id);
+                            break;
+                        case "Delete":
+                            await publisherService.RemovePublisher(PublisherTojson.Id);
+                            break;
                         default: break;
-
                     }
                 };
-                    channel.BasicConsume(queue: "publisher",
-                                        autoAck: true,
-                                        consumer: consumer);
-                    Console.WriteLine(" Press [enter] to exit.");
-                    Console.ReadLine();
+                channel.BasicConsume(queue: "publisher",
+                                    autoAck: true,
+                                    consumer: consumer);
+                Console.WriteLine(" Press [enter] to exit.");
+                Console.ReadLine();
             }
         }
 
     }
 }
-
-
-
-//{
-//const string queueName = "testqueuqu";
-
-//var factory = new ConnectionFactory() { HostName = "localhost" };
-//using (var connection = factory.CreateConnection())
-//using (var channel = connection.CreateModel())
-//{
-//    channel.QueueDeclare(queue: queueName,
-//                         durable: false,
-//                         exclusive: false,
-//                         autoDelete: false,
-//                         arguments: null);
-
-//    var consumer = new EventingBasicConsumer(channel);
-//    consumer.Received += (model, ea) =>
-//    {
-//        var body = ea.Body.ToArray();
-//        var message = Encoding.UTF8.GetString(body);
-//        Console.WriteLine(" [x] Received {0}", message);
-//    };
-//    channel.BasicConsume(queue: queueName,
-//                         autoAck: true,
-//                         consumer: consumer);
-
-//    Console.WriteLine(" Press [enter] to exit.");
-//    Console.ReadLine();
-//}
-//}
