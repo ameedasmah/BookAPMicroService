@@ -1,3 +1,4 @@
+using Consumer.services;
 using Contract.Entities;
 using Domain.mangers;
 using Domins.mangers;
@@ -35,6 +36,7 @@ namespace WebApplication1
             services.AddScoped<IAuthorRepositories, AuthorRepositories>();
             services.AddScoped <IAuthorMangers, AuthorManger>();
             services.AddScoped<IBookManger, BookManger>();
+
 
 
 
