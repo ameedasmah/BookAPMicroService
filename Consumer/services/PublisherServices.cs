@@ -38,28 +38,23 @@ namespace Consumer.services
         public async Task CreatePublisher(int Id)
         {
             Uri geturl = new Uri(URI + "Publisher/" + Id);
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(geturl);
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-            using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                var item = await reader.ReadToEndAsync();
-                var josnObject = JsonConvert.DeserializeObject<Publisher>(item);
-            }
+            var response = await _httpClient.GetAsync(geturl);
+            response.EnsureSuccessStatusCode();
+            var responseString = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<PublisherResource>(responseString);
+            Console.WriteLine($"myData{data}");
         }
 
         public async Task<Exception> UpdatePublisher(int Id)
         {
-            //try
-            //{
-                Uri geturl = new Uri(URI + "Publisher/" + Id);
-                var response = await _httpClient.GetAsync(geturl);
-                response.EnsureSuccessStatusCode();
-                var responseString = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<PublisherResource>(responseString);
-                Console.WriteLine($"myData{data}");
+            try
+            {
+            Uri geturl = new Uri(URI + "Publisher/" + Id);
+            var response = await _httpClient.GetAsync(geturl);
+            response.EnsureSuccessStatusCode();
+            var responseString = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<PublisherResource>(responseString);
+            Console.WriteLine($"myData{data}");
 
                 //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(geturl);
                 //request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
@@ -70,18 +65,19 @@ namespace Consumer.services
                 //        var item = await reader.ReadToEndAsync();
                 //       var josnObject = JsonConvert.DeserializeObject<Publisher>(item);
                 return null;
-            //}
-            // catch (exception ex)
-            //{
-            //    return ex;
-            //}
+                //    }
+            }
+            catch (Exception ex)
+            {
+                return ex;
+            }
 
-}
+        }
 
-public Task RemovePublisher(int Id)
-{
-    throw new NotImplementedException();
-}
+        public Task RemovePublisher(int Id)
+        {
+            throw new NotImplementedException();
+        }
 
    
     }
