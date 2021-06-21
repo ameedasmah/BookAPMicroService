@@ -287,3 +287,5 @@ E:\New folder\GitHub ApiBook\BookMicroServicesS\Consumer\bin\Debug\net5.0\Micros
 E:\New folder\GitHub ApiBook\BookMicroServicesS\Consumer\bin\Debug\net5.0\Microsoft.Rest.ClientRuntime.Azure.Authentication.dll
 E:\New folder\GitHub ApiBook\BookMicroServicesS\Consumer\bin\Debug\net5.0\Domain.dll
 E:\New folder\GitHub ApiBook\BookMicroServicesS\Consumer\bin\Debug\net5.0\Domain.pdb
+E:\New folder\GitHub ApiBook\BookMicroServicesS\Consumer\bin\Debug\net5.0\Humanizer.dll
+E:\New folder\GitHub ApiBook\BookMicroServicesS\Consumer\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll

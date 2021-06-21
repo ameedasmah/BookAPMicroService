@@ -8,6 +8,7 @@ namespace Contract.Entities
 {
     public class Publisher
     {
+        // diable auto generated 
         public int Id { get; set; }
         [Required]
         [StringLength(25, MinimumLength = 2)]

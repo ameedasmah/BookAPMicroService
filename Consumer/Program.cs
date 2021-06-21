@@ -66,7 +66,7 @@ namespace Consumer
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            string Connection = "server=.;database=Book;Trusted_Connection=true";
+            string Connection = "server=.;database=BookTask;Trusted_Connection=true";
             var serviceProvider = services.AddDbContext<BookContext>(options => options.UseSqlServer(Connection, b => b.MigrationsAssembly("WebApplication1").UseNetTopologySuite()))
             .AddScoped<IPublisherRepositories, PublisherReposoitories>()
             .AddScoped<PublisherServices>()

@@ -71,28 +71,40 @@ namespace Consumer.services
                 var responseString = await response.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<PublisherResource>(responseString);
                 Console.WriteLine($"myData{data}");
-
-                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(geturl);
-                //request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-                //    using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
-                //    using (Stream stream = response.GetResponseStream())
-                //    using (StreamReader reader = new StreamReader(stream))
-                //    {
-                //        var item = await reader.ReadToEndAsync();
-                //       var josnObject = JsonConvert.DeserializeObject<Publisher>(item);
+                var publisherEntities = new Publisher()
+                {
+                    Id = data.Id,
+                    Name = data.Name,
+                    Email = data.Email,
+                    Salery = data.Salary,
+                    DateOfBirth = data.DateOfBirth
+                };
+                await _repository.updatePublisher(publisherEntities);
                 return null;
-                //    }
             }
             catch (Exception ex)
             {
                 return ex;
             }
-
         }
 
-        public Task RemovePublisher(int Id)
+        public async Task RemovePublisher(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Uri geturl = new Uri(URI + "Publisher/" + Id);
+                var response = await _httpClient.GetAsync(geturl, HttpCompletionOption.ResponseHeadersRead);
+                if (response != null)
+                {
+                    await _repository.deletePublisher(Id);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception($"there is No Id to Delete{ex.Message}");
+            }
+
         }
 
 
