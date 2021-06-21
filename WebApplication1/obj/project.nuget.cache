@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4RfT5TZRMKITMONejH0maWKDX5Do7f0ACA4vR1VKBbpiaFjwW0af5A3HliGkOWdpvBv+uKF+Gvc02PnDqgk4tw==",
+  "dgSpecHash": "dUn7TG6lrnix5uXPbSPLC4Urfr59Iq0d1nqUeOubOL0fUnayYkJaq8Nip7c7RoBqEErBZJSPrNptXeWSQyyfyA==",
   "success": true,
   "projectFilePath": "E:\\New folder\\GitHub ApiBook\\BookMicroServicesS\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.authorization.policy\\2.2.0\\microsoft.aspnetcore.authorization.policy.2.2.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\2.2.0\\microsoft.aspnetcore.connections.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.cookiepolicy\\2.2.8\\microsoft.aspnetcore.cookiepolicy.2.2.8.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.diagnostics\\2.2.0\\microsoft.aspnetcore.diagnostics.2.2.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.abstractions\\2.2.0\\microsoft.aspnetcore.diagnostics.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.hostfiltering\\2.2.0\\microsoft.aspnetcore.hostfiltering.2.2.0.nupkg.sha512",
@@ -26,6 +27,7 @@
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.2.0\\microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.httpoverrides\\2.2.0\\microsoft.aspnetcore.httpoverrides.2.2.0.nupkg.sha512",
+    "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.httpspolicy\\2.2.0\\microsoft.aspnetcore.httpspolicy.2.2.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.7\\microsoft.aspnetcore.jsonpatch.5.0.7.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.mvc.abstractions\\2.2.0\\microsoft.aspnetcore.mvc.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.aspnetcore.mvc.core\\2.2.5\\microsoft.aspnetcore.mvc.core.2.2.5.nupkg.sha512",
@@ -76,6 +78,7 @@
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\2.2.0\\microsoft.extensions.fileproviders.physical.2.2.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\2.2.0\\microsoft.extensions.filesystemglobbing.2.2.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\2.2.0\\microsoft.extensions.hosting.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.extensions.http\\5.0.0\\microsoft.extensions.http.5.0.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.extensions.logging\\5.0.0\\microsoft.extensions.logging.5.0.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\Ameed\\.nuget\\packages\\microsoft.extensions.logging.configuration\\2.2.0\\microsoft.extensions.logging.configuration.2.2.0.nupkg.sha512",

@@ -22,7 +22,7 @@ namespace Contract.Entities
         public DateTime DateOfBirth { get; set; }
         [Required]
         [Range(2000,5000,ErrorMessage="it must be between 2000 and 5000 $")]
-        public int Salery { get; set; }
+        public float Salery { get; set; }
         //Navigation Properites
 
         public List<Book> Books { get; set; }

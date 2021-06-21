@@ -1,5 +1,6 @@
 ﻿using Contract.Entities;
 using Contract.Resourse;
+using Domain.mangers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using WebApplication1.Repositories;
 
 namespace Consumer.services
 {
@@ -27,34 +29,48 @@ namespace Consumer.services
     public class PublisherServices : IPublisher
     {
         private readonly HttpClient _httpClient;
+        private readonly BookContext _Context;
+        private readonly IPublisherRepositories _repository;
 
-        public PublisherServices(HttpClient httpClient)
+        public PublisherServices(HttpClient httpClient, BookContext Context, IPublisherRepositories repository)
         {
             _httpClient = httpClient;
+            _Context = Context;
+            _repository = repository;
         }
 
-        string URI = "http://localhost:5001/api/";
+        string URI = "https://localhost:5001/api/";
 
         public async Task CreatePublisher(int Id)
         {
             Uri geturl = new Uri(URI + "Publisher/" + Id);
-            var response = await _httpClient.GetAsync(geturl);
+            var response = await _httpClient.GetAsync(geturl, HttpCompletionOption.ResponseHeadersRead);
+            Console.WriteLine($" is it json :::::::::::::: {response}");
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<PublisherResource>(responseString);
+            // write on db 
             Console.WriteLine($"myData{data}");
+            var publisherEntities = new Publisher()
+            {
+                Id = data.Id,
+                Name = data.Name,
+                Email = data.Email,
+                Salery = data.Salary,
+                DateOfBirth = data.DateOfBirth
+            };
+            await _repository.CreatePublisher(publisherEntities);
         }
-
         public async Task<Exception> UpdatePublisher(int Id)
         {
             try
             {
-            Uri geturl = new Uri(URI + "Publisher/" + Id);
-            var response = await _httpClient.GetAsync(geturl);
-            response.EnsureSuccessStatusCode();
-            var responseString = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<PublisherResource>(responseString);
-            Console.WriteLine($"myData{data}");
+                Uri geturl = new Uri(URI + "Publisher/" + Id);
+                var response = await _httpClient.GetAsync(geturl);
+                response.EnsureSuccessStatusCode();
+                var responseString = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<PublisherResource>(responseString);
+                Console.WriteLine($"myData{data}");
 
                 //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(geturl);
                 //request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
@@ -79,9 +95,9 @@ namespace Consumer.services
             throw new NotImplementedException();
         }
 
-   
+
     }
-  
-    }
+
+}
 
 

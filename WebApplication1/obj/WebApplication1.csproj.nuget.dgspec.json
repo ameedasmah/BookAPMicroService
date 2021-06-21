@@ -33,6 +33,9 @@
               },
               "E:\\New folder\\GitHub ApiBook\\BookMicroServicesS\\DataAccessLayer\\DataAccessLayer.csproj": {
                 "projectPath": "E:\\New folder\\GitHub ApiBook\\BookMicroServicesS\\DataAccessLayer\\DataAccessLayer.csproj"
+              },
+              "E:\\New folder\\GitHub ApiBook\\BookMicroServicesS\\Domain\\Domain.csproj": {
+                "projectPath": "E:\\New folder\\GitHub ApiBook\\BookMicroServicesS\\Domain\\Domain.csproj"
               }
             }
           }
@@ -47,6 +50,26 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNetCore.CookiePolicy": {
+              "target": "Package",
+              "version": "[2.2.8, )"
+            },
+            "Microsoft.AspNetCore.HttpsPolicy": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
             "RabbitMQ.Client": {
               "target": "Package",
               "version": "[6.2.1, )"
