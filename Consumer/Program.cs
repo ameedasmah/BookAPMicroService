@@ -23,12 +23,10 @@ namespace Consumer
             Console.WriteLine("consumerrrrrrrrrrrrrrrrr ");
 
             string Connection = "server=.;database=Book;Trusted_Connection=true";
-            var serviceProvider = new ServiceCollection().AddDbContext<BookContext>(options => options.UseSqlServer(Connection, b => b.MigrationsAssembly("BookTask").UseNetTopologySuite()))
-             .AddScoped<IPublisherRepositories, PublisherReposoitories>()
-            .AddScoped<IPublisher, PublisherServices>()
-            .AddScoped<HttpClient>()
-             .BuildServiceProvider();
-            var publisherService = serviceProvider.GetRequiredService<IPublisher>();
+            var serviceProvider = new ServiceCollection();
+            ConfigureServices(serviceProvider);
+            var services = serviceProvider.BuildServiceProvider();
+            var publisherService = services.GetRequiredService<PublisherServices>();
 
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
@@ -40,7 +38,7 @@ namespace Consumer
                 {
                     var body = ea.Body.ToArray();
                     string jsonString = Encoding.UTF8.GetString(body);
-                    var json = JsonConvert.DeserializeObject<JObject>(jsonString);
+                    var json = JsonConvert.DeserializeObject<ToRecive>(jsonString);
 
                     var message = Encoding.UTF8.GetString(body);
                     var PublisherTojson = JsonConvert.DeserializeObject<ToRecive>(message);
@@ -66,5 +64,13 @@ namespace Consumer
             }
         }
 
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            string Connection = "server=.;database=BookTask;Trusted_Connection=true";
+            var serviceProvider = services.AddDbContext<BookContext>(options => options.UseSqlServer(Connection, b => b.MigrationsAssembly("WebApplication1").UseNetTopologySuite()))
+            .AddScoped<IPublisherRepositories, PublisherReposoitories>()
+            .AddScoped<PublisherServices>()
+            .AddHttpClient<PublisherServices>();
+        }
     }
 }

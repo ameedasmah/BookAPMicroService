@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(BookContext))]
-    [Migration("20210617113707_removePublisher")]
-    partial class removePublisher
+    [Migration("20210621124319_initBookApi")]
+    partial class initBookApi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -105,8 +105,8 @@ namespace WebApplication1.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
-                    b.Property<int>("Salery")
-                        .HasColumnType("int");
+                    b.Property<float>("Salery")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

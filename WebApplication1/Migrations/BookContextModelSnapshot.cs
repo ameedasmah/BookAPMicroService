@@ -103,8 +103,8 @@ namespace WebApplication1.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
-                    b.Property<int>("Salery")
-                        .HasColumnType("int");
+                    b.Property<float>("Salery")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
