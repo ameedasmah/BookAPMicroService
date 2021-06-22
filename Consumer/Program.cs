@@ -37,9 +37,6 @@ namespace Consumer
                 consumer.Received += async (model, ea) =>
                 {
                     var body = ea.Body.ToArray();
-                    string jsonString = Encoding.UTF8.GetString(body);
-                    var json = JsonConvert.DeserializeObject<ToRecive>(jsonString);
-
                     var message = Encoding.UTF8.GetString(body);
                     var PublisherTojson = JsonConvert.DeserializeObject<ToRecive>(message);
                     switch (PublisherTojson.Type)
@@ -61,8 +58,29 @@ namespace Consumer
                                     consumer: consumer);
                 Console.WriteLine(" Press [enter] to exit.");
                 Console.ReadLine();
+
+                //Harvest Channel 
+
+                channel.QueueDeclare(queue: "Harvest", durable: true, exclusive: false, autoDelete: false, arguments: null);
+                var consumerHarvest = new EventingBasicConsumer(channel);
+                consumerHarvest.Received += (model, ea) =>
+               {
+                   var body = ea.Body.ToArray();
+                   var message = Encoding.UTF8.GetString(body);
+                   var PublisherTojson = JsonConvert.DeserializeObject<JObject>(message);
+
+                   /*should to connect with Service*/
+
+
+                   channel.BasicConsume(queue: "Harvest",
+                                  autoAck: true,
+                                  consumer: consumer);
+                   Console.WriteLine(" Press [enter] to exit.");
+                   Console.ReadLine();
+               };
             }
         }
+
 
         private static void ConfigureServices(IServiceCollection services)
         {
