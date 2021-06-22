@@ -20,6 +20,8 @@ namespace Consumer.services
         Task CreatePublisher(int Id);
         Task<Exception> UpdatePublisher(int Id);
         Task RemovePublisher(int Id);
+        Task GetPublishers();
+
     }
     public class ToRecive
     {
