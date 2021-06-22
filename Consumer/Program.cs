@@ -54,34 +54,32 @@ namespace Consumer
                     }
                 };
                 channel.BasicConsume(queue: "publisher",
-                                    autoAck: true,
-                                    consumer: consumer);
+                                        autoAck: true,
+                                        consumer: consumer);
+
+
+                //Harvest Channel
+
+                channel.QueueDeclare(queue: "Harvest", durable: false, exclusive: false, autoDelete: false, arguments: null);
+                var consumerHarvest = new EventingBasicConsumer(channel);
+                consumerHarvest.Received += async (model, ea) =>
+               {
+                   //var body = ea.Body.ToArray();
+                   //var message = Encoding.UTF8.GetString(body);
+                   await publisherService.GetPublishers();
+
+               };
+                /*should to connect with Service*/
+
+
+                channel.BasicConsume(queue: "Harvest",
+                               autoAck: true,
+                               consumer: consumerHarvest);
                 Console.WriteLine(" Press [enter] to exit.");
                 Console.ReadLine();
 
-                //Harvest Channel 
-
-                channel.QueueDeclare(queue: "Harvest", durable: true, exclusive: false, autoDelete: false, arguments: null);
-                var consumerHarvest = new EventingBasicConsumer(channel);
-                consumerHarvest.Received += (model, ea) =>
-               {
-                   var body = ea.Body.ToArray();
-                   var message = Encoding.UTF8.GetString(body);
-                   var PublisherTojson = JsonConvert.DeserializeObject<JObject>(message);
-
-                   /*should to connect with Service*/
-
-
-                   channel.BasicConsume(queue: "Harvest",
-                                  autoAck: true,
-                                  consumer: consumer);
-                   Console.WriteLine(" Press [enter] to exit.");
-                   Console.ReadLine();
-               };
             }
         }
-
-
         private static void ConfigureServices(IServiceCollection services)
         {
             string Connection = "server=.;database=BookTask;Trusted_Connection=true";
