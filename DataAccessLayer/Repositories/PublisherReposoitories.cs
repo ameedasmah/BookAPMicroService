@@ -29,15 +29,14 @@ namespace WebApplication1.Repositories
         }
         public async Task<Publisher> CreatePublisher(Publisher publisher)
         {
-            if(publisher is null)
+            if (publisher is null)
             {
                 throw new ArgumentNullException($"{nameof(CreatePublisher)} should not be null");
             }
             try
             {
-
-            _Context.Add(publisher);
-            await _Context.SaveChangesAsync();
+                _Context.Add(publisher);
+                await _Context.SaveChangesAsync();
                 return await _Context.publishers.Include(item => item.Books).FirstOrDefaultAsync(x => x.Id == publisher.Id);
             }
             catch (Exception exiption)
@@ -57,9 +56,9 @@ namespace WebApplication1.Repositories
         {
             try
             {
-            return await _Context.publishers.Include(item=>item.Books).FirstOrDefaultAsync(x=>x.Id==Id);
+                return await _Context.publishers.Include(item => item.Books).FirstOrDefaultAsync(x => x.Id == Id);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 throw new Exception($"handel Your Id method broo :D:D:D:D:D:D : {exception.Message}");
             }
@@ -70,9 +69,9 @@ namespace WebApplication1.Repositories
             try
             {
 
-            return await _Context.publishers.Include(item=>item.Books).ToListAsync();
+                return await _Context.publishers.Include(item => item.Books).ToListAsync();
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 throw new Exception($"handel your get method :D:D:D:C : {exception.Message}");
             }
@@ -80,8 +79,9 @@ namespace WebApplication1.Repositories
 
         public async Task<Publisher> updatePublisher(Publisher publisher)
         {
-            if(publisher is null) {
-                throw new ArgumentNullException($"{nameof(updatePublisher)}publisher must not be null"); 
+            if (publisher is null)
+            {
+                throw new ArgumentNullException($"{nameof(updatePublisher)}publisher must not be null");
             }
             try
             {
@@ -89,7 +89,7 @@ namespace WebApplication1.Repositories
                 await _Context.SaveChangesAsync();
                 return publisher;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"hii cheack your Error in updatePublisher Mehtod: {ex.Message} ");
             }
