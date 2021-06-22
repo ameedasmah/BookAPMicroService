@@ -70,14 +70,14 @@ namespace Consumer.services
                 response.EnsureSuccessStatusCode();
                 var responseString = await response.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<PublisherResource>(responseString);
-                Console.WriteLine($"myData{data}");
+                Console.WriteLine($"myData {data.Salary}");
                 var publisherEntities = new Publisher()
                 {
                     Id = data.Id,
                     Name = data.Name,
                     Email = data.Email,
+                    DateOfBirth = data.DateOfBirth,
                     Salery = data.Salary,
-                    DateOfBirth = data.DateOfBirth
                 };
                 await _repository.updatePublisher(publisherEntities);
                 return null;
