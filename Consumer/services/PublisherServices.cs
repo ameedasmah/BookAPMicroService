@@ -147,7 +147,22 @@ namespace Consumer.services
 
 
 
-       
+            foreach (var Publisher in allDbInPubliserProject)
+            {
+                foreach (var PublisherInBookProject in PublishersInBookProject)
+                {
+                    if (Publisher.Id == PublisherInBookProject.Id && Publisher.Name != PublisherInBookProject.Name)
+                    {
+                        ListPublisherToUpdate.Add(Publisher);
+                    }
+                }
+            }
+            if (ListPublisherToUpdate.Any())
+            {
+                Console.WriteLine("---------=========== listOfAuthorsToUpdate ");
+
+                 _Context.publishers.UpdateRange(ListPublisherToUpdate);
+            }
 
 
 
