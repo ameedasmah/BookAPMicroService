@@ -89,7 +89,10 @@ namespace Domain.mangers
             if (existingEntity == null) throw new Exception($"{id} not Found");
 
             existingEntity.Name = model.Name;
-            var updatedEntity = await _repository.updatePublisher(existingEntity);
+            existingEntity.Email = model.Email;
+            existingEntity.DateOfBirth = model.DateOfBirth;
+            existingEntity.Salery = model.Salery;
+             var updatedEntity = await _repository.updatePublisher(existingEntity);
             return updatedEntity.ToResource();
         }
     }
