@@ -123,31 +123,31 @@ namespace Consumer.services
 
             List<Publisher> PublishersInBookProject = new List<Publisher>();
             PublishersInBookProject = await _Context.publishers.ToListAsync();
-            List<Publisher> ListpublisherCreate = new List<Publisher>();
-            List<Publisher> ListpublisherToUpdate = new List<Publisher>();
-            List<Publisher> ListpublisherToDelete = new List<Publisher>();
+            List<Publisher> ListPublisherCreate = new List<Publisher>();
+            List<Publisher> ListPublisherToUpdate = new List<Publisher>();
+            List<Publisher> ListPublisherToDelete = new List<Publisher>();
 
 
             //To Check query in Publishers not Exist In PublishersBook
+            //add Publisher
             var PublishersInBookProjectId = PublishersInBookProject.Select(x => x.Id).ToArray();
             var NotExisitngDbList = allDbInPubliserProject.Where(p => !PublishersInBookProjectId.Contains(p.Id)).ToList();
 
-            ListpublisherCreate.AddRange(NotExisitngDbList);
+            ListPublisherCreate.AddRange(NotExisitngDbList);
 
-            if (ListpublisherCreate.Any())
-            {
-                Console.WriteLine("........... NotExisitngDbList was Added");
-            }
-            //foreach (var Publisher in allDbInPubliserProject)
-            //{
-            //    foreach (var PublisherInBookProject in PublishersInBookProject)
-            //    {
-            //        if(Publisher.Id== PublisherInBookProject.Id && Publisher.Name != PublisherInBookProject.Name)
-            //        {
-            //            ListpublisherToUpdate.BulkInsert()
-            //        }
-            //    }
-            //}
+            //added NotExisiting TO Db
+            await _Context.publishers.AddRangeAsync(ListPublisherCreate);
+            
+
+
+            //deletePublisher
+            var allDbInPublisherProjectiD = allDbInPubliserProject.Select(x => x.Id).ToArray();
+            ListPublisherToDelete = PublishersInBookProject.Where(p => !allDbInPublisherProjectiD.Contains(p.Id)).ToList();
+             _Context.publishers.RemoveRange(ListPublisherToDelete);
+
+
+
+       
 
 
 
