@@ -17,7 +17,7 @@ namespace Domain.mangers
     public interface IPublisherManger
     {
         Task<IEnumerable<PublisherResource>> GetPublishers();
-        Task<Publisher> GetPublisher(int id);
+        Task<PublisherResource> GetPublisher(int id);
         Task<PublisherResource> CreatePublisher(PublisherModel newPublisherModel);
         Task<PublisherResource> PutPublisher(int id, PublisherModel model);
         Task DeleteResource(int Id);
@@ -49,15 +49,25 @@ namespace Domain.mangers
         public async Task DeleteResource(int Id)
         {
             var BookToDelete = await _repository.GetPublisher(Id);
-            if (BookToDelete == null) throw new Exception("Id not Found");
-          
-
+            if (BookToDelete == null) throw new Exception($"{Id} is not Found");
+            if (BookToDelete.Books.Count == 0)
+            {
             await _repository.deletePublisher(BookToDelete.Id);
+            }
+            else
+            {
+                throw new Exception("can't remove Publisher that has a Book");
+            }
         }
 
-        public async Task<Publisher> GetPublisher(int id)
+        public async Task<PublisherResource> GetPublisher(int id)
         {
-            return await _repository.GetPublisher(id);
+            var PublisherEntity =  await _repository.GetPublisher(id);
+            if (PublisherEntity is null)
+            {
+                throw new Exception($"{id} is not found");
+            }
+             return PublisherEntity.ToResource();
         }
 
         public async Task<IEnumerable<PublisherResource>> GetPublishers()
@@ -76,7 +86,7 @@ namespace Domain.mangers
         public async Task<PublisherResource> PutPublisher(int id, PublisherModel model)
         {
             var existingEntity = await _repository.GetPublisher(id);
-            if (existingEntity == null) throw new Exception("Id not Found");
+            if (existingEntity == null) throw new Exception($"{id} not Found");
 
             existingEntity.Name = model.Name;
             var updatedEntity = await _repository.updatePublisher(existingEntity);
