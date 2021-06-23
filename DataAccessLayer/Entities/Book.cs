@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Contract.Entities
 {
@@ -12,7 +10,6 @@ namespace Contract.Entities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id {get; set;}
         [Required]
-
         public string Title { get; set; }
         [Required(ErrorMessage = "It's not allowed to be null")]
         [MaxLength(500)]
@@ -21,10 +18,6 @@ namespace Contract.Entities
         //Navigation Properites
         public int PublisherId { get; set; }
         public Publisher Publisher { get; set; }
-
         public ICollection<Author> Authors { get; set; }
-
-
-
     }
 }

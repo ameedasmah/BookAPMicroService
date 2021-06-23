@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Contract.Entities
 {
     public class Author
@@ -26,7 +23,6 @@ namespace Contract.Entities
         public int Age { get; set; }
         //Navigations properties
         public ICollection<Book>? Books { get; set; }
-
         //public List<Book_Author> book_Authors { get; set; }
     }
 }
