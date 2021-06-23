@@ -24,7 +24,7 @@ namespace Consumer.services
         Task RemoveAuthor(int Id);
         Task GetAuthors();
     }
-    class AuthorService : IAuthor
+    class AuthorService
     {
         private readonly HttpClient _httpClient;
         private readonly BookContext _Context;

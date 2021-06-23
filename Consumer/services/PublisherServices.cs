@@ -1,6 +1,7 @@
 ﻿using Contract.Entities;
 using Contract.Resourse;
 using Domain.mangers;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -41,8 +42,7 @@ namespace Consumer.services
             _Context = Context;
             _repository = repository;
         }
-
-        string URI = "https://localhost:5001/api/";
+        string URI = "https://localhost:44335/api/";
 
         public async Task CreatePublisher(int Id)
         {
@@ -90,7 +90,6 @@ namespace Consumer.services
                 return ex;
             }
         }
-
         public async Task RemovePublisher(int Id)
         {
             try
@@ -109,19 +108,53 @@ namespace Consumer.services
             }
 
         }
-
         //Harvest
-        string URL = "https://localhost:5001/api/";
+        string URL = "https://localhost:44335/api/";
         public async Task GetPublishers()
         {
             Uri geturl = new Uri(URL + "Publisher/");
             var response = await _httpClient.GetAsync(geturl, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<List<PublisherResource>>(responseString);
-            Console.WriteLine($"myData{data[0].Name}");
+            var allDbInPubliserProject = JsonConvert.DeserializeObject<List<Publisher>>(responseString);
+            Console.WriteLine($"myData{allDbInPubliserProject[0].Name}");
+
+            //added to the db
+
+            List<Publisher> PublishersInBookProject = new List<Publisher>();
+            PublishersInBookProject = await _Context.publishers.ToListAsync();
+            List<Publisher> ListPublisherCreate = new List<Publisher>();
+            List<Publisher> ListPublisherToUpdate = new List<Publisher>();
+            List<Publisher> ListPublisherToDelete = new List<Publisher>();
+
+
+            //To Check query in Publishers not Exist In PublishersBook
+            //add Publisher
+            var PublishersInBookProjectId = PublishersInBookProject.Select(x => x.Id).ToArray();
+            var NotExisitngDbList = allDbInPubliserProject.Where(p => !PublishersInBookProjectId.Contains(p.Id)).ToList();
+
+            ListPublisherCreate.AddRange(NotExisitngDbList);
+
+            //added NotExisiting TO Db
+            await _Context.publishers.AddRangeAsync(ListPublisherCreate);
+            
+
+
+            //deletePublisher
+            var allDbInPublisherProjectiD = allDbInPubliserProject.Select(x => x.Id).ToArray();
+            ListPublisherToDelete = PublishersInBookProject.Where(p => !allDbInPublisherProjectiD.Contains(p.Id)).ToList();
+             _Context.publishers.RemoveRange(ListPublisherToDelete);
+
+
+
+       
+
+
+
+
 
         }
+
     }
 
 }

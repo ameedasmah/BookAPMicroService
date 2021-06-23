@@ -17,6 +17,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="RabbitMQ.Client" Version="6.2.1" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+    <PackageReference Include="Z.EntityFramework.Extensions" Version="5.1.41" />
   </ItemGroup>
 
   <ItemGroup>
