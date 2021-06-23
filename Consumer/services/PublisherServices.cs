@@ -152,5 +152,4 @@ namespace Consumer.services
         }
 
     }
-
 }

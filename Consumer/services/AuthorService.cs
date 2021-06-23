@@ -37,7 +37,6 @@ namespace Consumer.services
         }
 
         string URI = "https://localhost:5001/api/";
-
         public async Task CreateAuthor(int Id)
         {
             Uri getUri = new Uri(URI + "authors" + Id);
@@ -57,7 +56,6 @@ namespace Consumer.services
             };
             await _AuthorRepositories.CreateAuthor(AuthorEntities);
         }
-
         public async Task RemoveAuthor(int Id)
         {
             try
@@ -74,9 +72,7 @@ namespace Consumer.services
             {
                 throw new Exception($"there is No Id to Delete{ex.Message}");
             }
-
         }
-
         public async Task<Exception> UpdateAuthor(int Id)
         {
             try
@@ -103,7 +99,6 @@ namespace Consumer.services
                 return ex;
             }
         }
-
         //Harvest
         string URL = "https://localhost:5001/api/";
         public async Task GetAuthors()
