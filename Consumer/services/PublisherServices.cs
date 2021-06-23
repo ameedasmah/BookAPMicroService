@@ -27,6 +27,7 @@ namespace Consumer.services
     {
         public int Id { get; set; }
         public string Type { get; set; }
+        public string OperationType { get; set; }
     }
     public class PublisherServices : IPublisher
     {
@@ -113,13 +114,13 @@ namespace Consumer.services
         string URL = "https://localhost:5001/api/";
         public async Task GetPublishers()
         {
-            Uri geturl = new Uri(URL + "Publisher/" );
+            Uri geturl = new Uri(URL + "Publisher/");
             var response = await _httpClient.GetAsync(geturl, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<List<PublisherResource>>(responseString);
             Console.WriteLine($"myData{data[0].Name}");
-       
+
         }
     }
 
