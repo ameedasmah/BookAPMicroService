@@ -9,7 +9,7 @@ namespace Contract.Resourse
         public string Name { get; set; }
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public float Salary { get; set; }
+        public float Salery { get; set; }
 
 
         public List<PublisherBookCreate> Books { get; set; }

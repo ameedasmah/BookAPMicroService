@@ -57,7 +57,6 @@ namespace Consumer
                                         autoAck: true,
                                         consumer: consumer);
 
-
                 //Harvest Channel
 
                 channel.QueueDeclare(queue: "Harvest", durable: false, exclusive: false, autoDelete: false, arguments: null);
@@ -77,7 +76,6 @@ namespace Consumer
                                consumer: consumerHarvest);
                 Console.WriteLine(" Press [enter] to exit.");
                 Console.ReadLine();
-
             }
         }
         private static void ConfigureServices(IServiceCollection services)
