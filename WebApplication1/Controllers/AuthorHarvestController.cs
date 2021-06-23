@@ -11,10 +11,10 @@ namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HarvestController : ControllerBase
+    public class AuthorHarvestController : ControllerBase
     {
         [HttpGet]
-        public void GetPublishers()
+        public void GetAuthors()
         {
             try
             {
@@ -28,16 +28,16 @@ namespace WebApplication1.Controllers
                 using (var connection = factory.CreateConnection())
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: "Harvest",
+                    channel.QueueDeclare(queue: "HarvestAuthor",
                                     durable: false,
                                     exclusive: false,
                                     autoDelete: false,
                                     arguments: null);
-                    string message = "HarvestPublishers";
+                    string message = "HarvestAuthor";
                     var body = Encoding.UTF8.GetBytes(message);
 
                     channel.BasicPublish(exchange: "",
-                                         routingKey: "Harvest",
+                                         routingKey: "HarvestAuthor",
                                          basicProperties: null,
                                          body: body);
                     Console.WriteLine(" [x] Sent {0}", message);
@@ -51,7 +51,5 @@ namespace WebApplication1.Controllers
             };
         }
     }
-
-
-
 }
+
