@@ -21,7 +21,6 @@ namespace Consumer
         static void Main(string[] args)
         {
             Console.WriteLine("consumerrrrrrrrrrrrrrrrr ");
-
             string Connection = "server=.;database=Book;Trusted_Connection=true";
             var serviceProvider = new ServiceCollection();
             ConfigureServices(serviceProvider);
@@ -38,19 +37,39 @@ namespace Consumer
                 {
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
-                    var PublisherTojson = JsonConvert.DeserializeObject<ToRecive>(message);
-                    switch (PublisherTojson.Type)
+                    var ObjTojson = JsonConvert.DeserializeObject<ToRecive>(message);
+                    if (ObjTojson.OperationType == "Publisher")
                     {
-                        case "Create":
-                            await publisherService.CreatePublisher(PublisherTojson.Id);
-                            break;
-                        case "Update":
-                            await publisherService.UpdatePublisher(PublisherTojson.Id);
-                            break;
-                        case "Delete":
-                            await publisherService.RemovePublisher(PublisherTojson.Id);
-                            break;
-                        default: break;
+
+                        switch (ObjTojson.Type)
+                        {
+                            case "Create":
+                                await publisherService.CreatePublisher(ObjTojson.Id);
+                                break;
+                            case "Update":
+                                await publisherService.UpdatePublisher(ObjTojson.Id);
+                                break;
+                            case "Delete":
+                                await publisherService.RemovePublisher(ObjTojson.Id);
+                                break;
+                            default: break;
+                        }
+                    }
+                    if(ObjTojson.OperationType == "Author")
+                    {
+                        switch (ObjTojson.Type)
+                        {
+                            case "Create":
+                                await publisherService.CreatePublisher(ObjTojson.Id);
+                                break;
+                            case "Update":
+                                await publisherService.UpdatePublisher(ObjTojson.Id);
+                                break;
+                            case "Delete":
+                                await publisherService.RemovePublisher(ObjTojson.Id);
+                                break;
+                            default: break;
+                        }
                     }
                 };
                 channel.BasicConsume(queue: "publisher",
