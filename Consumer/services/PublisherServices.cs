@@ -22,7 +22,6 @@ namespace Consumer.services
         Task<Exception> UpdatePublisher(int Id);
         Task RemovePublisher(int Id);
         Task GetPublishers();
-
     }
     public class ToRecive
     {
@@ -43,7 +42,6 @@ namespace Consumer.services
             _repository = repository;
         }
         string URI = "https://localhost:44335/api/";
-
         public async Task CreatePublisher(int Id)
         {
             Uri geturl = new Uri(URI + "Publisher/" + Id);
@@ -94,19 +92,13 @@ namespace Consumer.services
         {
             try
             {
-                Uri geturl = new Uri(URI + "Publisher/" + Id);
-                var response = await _httpClient.GetAsync(geturl, HttpCompletionOption.ResponseHeadersRead);
-                if (response != null)
-                {
-                    await _repository.deletePublisher(Id);
-                }
+                await _repository.deletePublisher(Id);
             }
 
             catch (Exception ex)
             {
                 throw new Exception($"there is No Id to Delete{ex.Message}");
             }
-
         }
         //Harvest
         string URL = "https://localhost:44335/api/";
@@ -120,13 +112,11 @@ namespace Consumer.services
             Console.WriteLine($"myData{allDbInPubliserProject[0].Name}");
 
             //added to the db
-
             List<Publisher> PublishersInBookProject = new List<Publisher>();
             PublishersInBookProject = await _Context.publishers.ToListAsync();
             List<Publisher> ListPublisherCreate = new List<Publisher>();
             List<Publisher> ListPublisherToUpdate = new List<Publisher>();
             List<Publisher> ListPublisherToDelete = new List<Publisher>();
-
 
             //To Check query in Publishers not Exist In PublishersBook
             //add Publisher
@@ -137,15 +127,11 @@ namespace Consumer.services
 
             //added NotExisiting TO Db
             await _Context.publishers.AddRangeAsync(ListPublisherCreate);
-            
-
 
             //deletePublisher
             var allDbInPublisherProjectiD = allDbInPubliserProject.Select(x => x.Id).ToArray();
             ListPublisherToDelete = PublishersInBookProject.Where(p => !allDbInPublisherProjectiD.Contains(p.Id)).ToList();
-             _Context.publishers.RemoveRange(ListPublisherToDelete);
-
-
+            _Context.publishers.RemoveRange(ListPublisherToDelete);
 
             foreach (var Publisher in allDbInPubliserProject)
             {
@@ -161,17 +147,10 @@ namespace Consumer.services
             {
                 Console.WriteLine("---------=========== listOfAuthorsToUpdate ");
 
-                 _Context.publishers.UpdateRange(ListPublisherToUpdate);
+                _Context.publishers.UpdateRange(ListPublisherToUpdate);
             }
-
-
-
-
-
         }
 
     }
 
 }
-
-
