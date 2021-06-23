@@ -58,7 +58,7 @@ namespace Consumer.services
                 Id = data.Id,
                 Name = data.Name,
                 Email = data.Email,
-                Salery = data.Salary,
+                Salery = data.Salery,
                 DateOfBirth = data.DateOfBirth
             };
             await _repository.CreatePublisher(publisherEntities);
@@ -72,14 +72,14 @@ namespace Consumer.services
                 response.EnsureSuccessStatusCode();
                 var responseString = await response.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<PublisherResource>(responseString);
-                Console.WriteLine($"myData {data.Salary}");
+                Console.WriteLine($"myData {data.Salery}");
                 var publisherEntities = new Publisher()
                 {
                     Id = data.Id,
                     Name = data.Name,
                     Email = data.Email,
                     DateOfBirth = data.DateOfBirth,
-                    Salery = data.Salary,
+                    Salery = data.Salery,
                 };
                 await _repository.updatePublisher(publisherEntities);
                 return null;
@@ -118,7 +118,7 @@ namespace Consumer.services
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<List<PublisherResource>>(responseString);
-            Console.WriteLine($"myData{data}");
+            Console.WriteLine($"myData{data[0].Name}");
        
         }
     }
