@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Contract.models
@@ -18,8 +17,5 @@ namespace Contract.models
         public int PublisherId { get; set; }
         //[Required(ErrorMessage = "It's not allowed to be null")]
         public List<int> AuthorIds { get; set; }
-
-
-
     }
 }
